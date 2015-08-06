@@ -3,8 +3,11 @@
 require 'sinatra'
 require 'cassandra'
 
+cass_host = ARGV.first || '127.0.0.1'
+
 cassandra_cluster = Cassandra.cluster(
   reconnection_policy: Cassandra::Reconnection::Policies::Constant.new(5),
+  hosts: [ cass_host ],
 )
 cass = cassandra_cluster.connect('ngmon');
 
